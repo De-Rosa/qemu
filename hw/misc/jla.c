@@ -62,7 +62,7 @@ static void jla_start_next_job(JlaState *s) {
   }
 
   uint64_t len = sizeof(s->curr);
-  dma_addr_t addr = s->sq_base + (uint64_t)s->sq_head + len;
+  dma_addr_t addr = s->sq_base + (uint64_t)s->sq_head * len;
   if (pci_dma_read(&s->pdev, addr, &s->curr, len) != MEMTX_OK) {
     jla_error(s, "DMA read for job failed");
     return;
@@ -100,7 +100,7 @@ static void jla_job_done(void *opaque) {
 
   s->sq_head = (s->sq_head + 1) & (s->ring_size - 1);
   s->busy = false;
-  s->status &= ~JLA_STATUS_READY;
+  s->status &= ~JLA_STATUS_BUSY;
 
   jla_start_next_job(s);
 }
