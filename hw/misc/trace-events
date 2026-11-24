@@ -1,5 +1,10 @@
 # See docs/devel/tracing.rst for syntax documentation.
 
+# jla.c
+jla_job(uint32_t idx, uint32_t job_id, uint32_t kernel_id, uint64_t duration) "idx %u job %u kernel %u duration %" PRIu64 "ns"
+jla_job_start(uint32_t idx, uint32_t job_id, uint64_t duration, uint64_t estimated_duration) "idx %u job %u duration %" PRIu64 "ns estimated %" PRIu64 "ns"
+jla_job_done(uint32_t job_id, uint64_t actual_time, uint64_t requested_time) "job %u actual %" PRIu64 " ns requested %" PRIu64 "ns"
+
 # allwinner-cpucfg.c
 allwinner_cpucfg_cpu_reset(uint8_t cpu_id, uint32_t reset_addr) "id %u, reset_addr 0x%" PRIx32
 allwinner_cpucfg_read(uint64_t offset, uint64_t data, unsigned size) "offset 0x%" PRIx64 " data 0x%" PRIx64 " size %" PRIu32
